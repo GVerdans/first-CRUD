@@ -8,7 +8,6 @@ DEFINE('PSWD', '#');
 
 try {
     $pdo = new PDO("mysql: host=" . HOST . ";port=" . PORT . ";dbname=" . DBNAME . ";user=" . USER . ";password=" . PSWD);
-    // echo "Deu certo garai";
 
 } catch (PDOException $e){
     die ("A conexão com o DB " . DBNAME . "falhou devido ao erro " . $e->getMessage());
