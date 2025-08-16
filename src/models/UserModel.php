@@ -4,12 +4,10 @@
 class UserModel {
     private $pdo; // Prop da Classe
 
-
     // Recebe o pdo como argumento
     public function __construct($pdo) {
         $this->pdo = $pdo; // Guarda na prop da Classe
     }
-
 
     // Verifica as credencias no DB
     public function checkLogin($user, $pswd) {
@@ -18,14 +16,6 @@ class UserModel {
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':user', $user, PDO::PARAM_STR);
         $stmt->execute();
-
-        
-        //DEBUG
-        // $usuario = $stmt->fetch(PDO::PARAM_STR);
-        // echo "<pre>Usuário no banco: ";
-        // print_r($usuario);
-        // echo "</pre>";
-
 
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -38,7 +28,6 @@ class UserModel {
 
         return false;
     }
-
 
     // verifica se o usuário já existe.
     public function userExists($user) {
@@ -68,5 +57,14 @@ class UserModel {
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
 
         return $stmt->execute();
+    }
+
+    // Lista os usuários
+    public function listUsers(){
+        $sql = "SELECT username, email FROM users";
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        
     }
 }
